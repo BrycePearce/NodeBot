@@ -21,6 +21,9 @@ namespace NodeBot
             {
                 LogLevel = LogSeverity.Verbose // verbose logging for debugging
             });
+            // set bot status
+            await _client.SetGameAsync("Robotics-Anonymous", "https://www.twitch.tv/cocoari", StreamType.Twitch);
+
             // subscribe to a log event
             _client.Log += Log;
    
