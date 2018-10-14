@@ -1,4 +1,5 @@
-﻿using Discord.Commands;
+﻿using Discord;
+using Discord.Commands;
 using Newtonsoft.Json;
 using NodeBot.src.Helpers;
 using NodeBot.src.Models;
@@ -18,6 +19,7 @@ namespace NodeBot.src.Modules
         [Command("weather")]
         public async Task WeatherInformation([Remainder][Optional] string message) // [Remainder] gives us the message after the command try = "" again
         {
+
             // handle un-registered users with no query
             if (String.IsNullOrWhiteSpace(message) && !DataStorage.HasKey(Context.User.Username)) { await Context.Channel.SendMessageAsync("Set your default location with .weather set YOUR LOCATION"); return; }
 
@@ -29,21 +31,30 @@ namespace NodeBot.src.Modules
             }
 
             // handle location registry
-            if (!String.IsNullOrWhiteSpace(message) && message.ToLower().Contains("set")) // todo: make this better, needs to check index
+            if (!String.IsNullOrWhiteSpace(message) && message.Substring(0, 3).ToLower() == "set")
             {
                 RegisterUserLocation(message);
                 return;
             }
-
             // otherwise, print out the result
             SendWeatherInfo(message);
         }
 
         private async void RegisterUserLocation(string message)
         {
-            string userLocation = message.Substring(message.IndexOf("set") + "set".Length); // get all the user text after ".weather set"
-            DataStorage.AddPairToStorage(Context.User.Username, userLocation);
-            await Context.Channel.SendMessageAsync(Context.User.Username + " successfully added " + userLocation + " as their default location.");
+            // check to see if user has existing location registered
+            if (DataStorage.HasKey(Context.User.Username) && !String.IsNullOrWhiteSpace(message))
+            {
+                DataStorage.ReplaceKeyValue(Context.User.Username, message);
+                await Context.Channel.SendMessageAsync("updated location to " + message);
+            }
+            // otherwise, register a new location for the user
+            else
+            {
+                string userLocation = message.Substring(message.IndexOf("set") + "set".Length); // get all the user the first occurance of the word "set"
+                DataStorage.AddPairToStorage(Context.User.Username, userLocation);
+                await Context.Channel.SendMessageAsync(Context.User.Username + " successfully added " + userLocation + " as their default location.");
+            }
         }
 
         private async void SendWeatherInfo(string message)
@@ -67,9 +78,22 @@ namespace NodeBot.src.Modules
             var darkResponse = await client.GetAsync(darkSkyRequestUrl);
             var darkResponseString = await darkResponse.Content.ReadAsStringAsync();
 
-            //DarkSkyResponse darkSkyResponse = JsonConvert.DeserializeObject<DarkSkyResponse>(darkResponseString); // not working, can't figure out why. todo: fix
-            dynamic deserializedDarkResponse = JsonConvert.DeserializeObject(darkResponseString);
-            await Context.Channel.SendMessageAsync("The temperature in " + formattedAddress + " is currently: " + deserializedDarkResponse.currently.temperature + "F");
+            DarkSkyResponse deserializedDarkResponse = JsonConvert.DeserializeObject<DarkSkyResponse>(darkResponseString);
+
+            //output 
+            var embed = new EmbedBuilder();
+            embed.Title = formattedAddress;
+            embed.WithDescription("" +
+                                 deserializedDarkResponse.currently.temperature + "F\n" +
+                                 "Cloud Cover: " + deserializedDarkResponse.currently.cloudCover + "\n" +
+                                 "Windspeed: " + deserializedDarkResponse.currently.windSpeed + "mph\n" +
+                                 "Chance of Rain: " + deserializedDarkResponse.daily.data[0].precipProbability + "%\n\n" +
+                                 "Forecast: " + deserializedDarkResponse.daily.summary
+
+                );
+            embed.WithColor(new Color(51, 72, 178));
+            await Context.Channel.SendMessageAsync("", false, embed);
+
         }
     }
 }
