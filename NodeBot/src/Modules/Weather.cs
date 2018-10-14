@@ -42,16 +42,16 @@ namespace NodeBot.src.Modules
 
         private async void RegisterUserLocation(string message)
         {
+            string userLocation = message.Substring(message.IndexOf("set") + "set".Length).Trim(); // get all the user the first occurance of the word "set"
             // check to see if user has existing location registered
             if (DataStorage.HasKey(Context.User.Username) && !String.IsNullOrWhiteSpace(message))
             {
-                DataStorage.ReplaceKeyValue(Context.User.Username, message);
-                await Context.Channel.SendMessageAsync("updated location to " + message);
+                DataStorage.ReplaceKeyValue(Context.User.Username, userLocation);
+                await Context.Channel.SendMessageAsync("updated location to " + userLocation);
             }
             // otherwise, register a new location for the user
             else
             {
-                string userLocation = message.Substring(message.IndexOf("set") + "set".Length); // get all the user the first occurance of the word "set"
                 DataStorage.AddPairToStorage(Context.User.Username, userLocation);
                 await Context.Channel.SendMessageAsync(Context.User.Username + " successfully added " + userLocation + " as their default location.");
             }
