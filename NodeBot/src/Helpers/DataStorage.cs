@@ -36,6 +36,7 @@ namespace NodeBot.src.Helpers
         public static void ReplaceKeyValue(string key, string newValue)
         {
             pairs[key] = newValue;
+            SaveData();
         }
         // constructor
         static DataStorage()
