@@ -84,7 +84,7 @@ namespace NodeBot.src.Modules
             var embed = new EmbedBuilder();
             embed.Title = formattedAddress;
             embed.WithDescription("" +
-                                 deserializedDarkResponse.currently.temperature + "F\n" +
+                                 deserializedDarkResponse.currently.temperature + "F / " + Celcius(deserializedDarkResponse.currently.temperature) + "C\n" +
                                  "Cloud Cover: " + deserializedDarkResponse.currently.cloudCover + "\n" +
                                  "Windspeed: " + deserializedDarkResponse.currently.windSpeed + "mph\n" +
                                  "Chance of Rain: " + deserializedDarkResponse.daily.data[0].precipProbability + "%\n\n" +
@@ -93,7 +93,13 @@ namespace NodeBot.src.Modules
                 );
             embed.WithColor(new Color(51, 72, 178));
             await Context.Channel.SendMessageAsync("", false, embed);
+        }
 
+        private double Celcius(double f)
+        {
+            double c = 5.0 / 9.0 * (f - 32);
+
+            return Math.Round(c);
         }
     }
 }
