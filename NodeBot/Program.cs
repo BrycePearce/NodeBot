@@ -15,14 +15,14 @@ namespace NodeBot
         public async Task StartAsync()
         {
             // make sure we have a token
-            if (Config.bot.token == "" || Config.bot.token == null) return;
+            if(String.IsNullOrEmpty(Config.bot.token)) return;
 
             _client = new DiscordSocketClient(new DiscordSocketConfig
             {
                 LogLevel = LogSeverity.Verbose // verbose logging for debugging
             });
             // set bot status
-            await _client.SetGameAsync("Robotics-Anonymous", "https://www.twitch.tv/cocoari", StreamType.Twitch);
+            await _client.SetGameAsync("Roboholics-Anonymous", "https://www.twitch.tv/cocoari", StreamType.Twitch);
 
             // subscribe to a log event
             _client.Log += Log;

@@ -13,6 +13,7 @@ namespace NodeBot
         private const string configFolder = "Resources";
         private const string configFile = "config.json";
         public static BotConfig bot;
+        public static WeatherConfig weatherTokens;
         // constructor
         static Config()
         {
@@ -30,7 +31,7 @@ namespace NodeBot
                 // if it does exist, set json config values to bot
                 string json = File.ReadAllText(configFolder + "/" + configFile);
                 bot = JsonConvert.DeserializeObject<BotConfig>(json);
-
+                weatherTokens = JsonConvert.DeserializeObject<WeatherConfig>(json);
             }
         }
     }
@@ -39,5 +40,11 @@ namespace NodeBot
     {
         public string token;
         public string cmdPrefix;
+    }
+
+    public struct WeatherConfig
+    {
+        public string googleGeoToken;
+        public string darkSkyToken;
     }
 }
