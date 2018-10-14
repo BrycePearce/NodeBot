@@ -134,6 +134,7 @@
   <ItemGroup>
     <Compile Include="CommandHandler.cs" />
     <Compile Include="Config.cs" />
+    <Compile Include="src\Helpers\DataStorage.cs" />
     <Compile Include="src\Models\DarkSkyModel.cs" />
     <Compile Include="src\Models\GeocodeModel.cs" />
     <Compile Include="src\Modules\Misc.cs" />
