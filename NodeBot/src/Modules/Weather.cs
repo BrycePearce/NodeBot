@@ -80,9 +80,11 @@ namespace NodeBot.src.Modules
 
             DarkSkyResponse deserializedDarkResponse = JsonConvert.DeserializeObject<DarkSkyResponse>(darkResponseString);
 
-            //output 
+            //output
+            var emoji = SetEmoji(deserializedDarkResponse.currently.icon);
+            var themeColor = ThemeColor(deserializedDarkResponse.currently.temperature);
             var embed = new EmbedBuilder();
-            embed.Title = formattedAddress;
+            embed.Title = emoji + " " + formattedAddress;
             embed.WithDescription("" +
                                  deserializedDarkResponse.currently.temperature + "F / " + Celcius(deserializedDarkResponse.currently.temperature) + "C\n" +
                                  "Cloud Cover: " + deserializedDarkResponse.currently.cloudCover + "\n" +
@@ -91,7 +93,7 @@ namespace NodeBot.src.Modules
                                  "Forecast: " + deserializedDarkResponse.daily.summary
 
                 );
-            embed.WithColor(new Color(51, 72, 178));
+            embed.WithColor(themeColor);
             await Context.Channel.SendMessageAsync("", false, embed);
         }
 
@@ -100,6 +102,40 @@ namespace NodeBot.src.Modules
             double c = 5.0 / 9.0 * (f - 32);
 
             return Math.Round(c);
+        }
+
+        private string SetEmoji(string weatherKey)
+        {
+            if (Constants.weatherEmojis.ContainsKey(weatherKey))
+            {
+                return Constants.weatherEmojis[weatherKey].ToString();
+            }
+            else
+                return "";
+        }
+
+        private Color ThemeColor(double temperature) // should probably be a switch statement. lol.
+        {
+            if (temperature < 39)
+            {
+               return new Color(0, 255, 255); // cyan
+            }
+            else if (temperature >= 39 && temperature < 72)
+            {
+                return new Color(0, 255, 0); // light green
+            }
+            else if (temperature >= 72 && temperature < 85)
+            {
+                return new Color(255, 165, 0); // orange
+            }
+            else if (temperature >= 85)
+            {
+                return new Color(255, 0, 0);  // red
+            }
+            else
+            {
+                return new Color(128, 128, 128); // grey
+            }
         }
     }
 }
