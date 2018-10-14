@@ -84,11 +84,12 @@ namespace NodeBot.src.Modules
             var emoji = SetEmoji(deserializedDarkResponse.currently.icon);
             var themeColor = ThemeColor(deserializedDarkResponse.currently.temperature);
             var embed = new EmbedBuilder();
-            embed.Title = emoji + " " + formattedAddress;
+            embed.Title = emoji + " " + formattedAddress + " : " + deserializedDarkResponse.currently.time;
             embed.WithDescription("" +
                                  deserializedDarkResponse.currently.temperature + "F / " + Celcius(deserializedDarkResponse.currently.temperature) + "C\n" +
                                  "Cloud Cover: " + deserializedDarkResponse.currently.cloudCover + "\n" +
                                  "Windspeed: " + deserializedDarkResponse.currently.windSpeed + "mph\n" +
+                                 "Humidity: " + deserializedDarkResponse.currently.humidity + "mph\n" +
                                  "Chance of Rain: " + deserializedDarkResponse.daily.data[0].precipProbability + "%\n\n" +
                                  "Forecast: " + deserializedDarkResponse.daily.summary
 
@@ -118,7 +119,7 @@ namespace NodeBot.src.Modules
         {
             if (temperature < 39)
             {
-               return new Color(0, 255, 255); // cyan
+                return new Color(0, 255, 255); // cyan
             }
             else if (temperature >= 39 && temperature < 72)
             {
