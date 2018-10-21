@@ -136,9 +136,9 @@
     <Compile Include="Config.cs" />
     <Compile Include="src\Constants.cs" />
     <Compile Include="src\Helpers\DataStorage.cs" />
-    <Compile Include="src\Helpers\WeatherHelpers.cs" />
     <Compile Include="src\Models\DarkSkyModel.cs" />
     <Compile Include="src\Models\GeocodeModel.cs" />
+    <Compile Include="src\Modules\CollectGamesBeingPlayed.cs" />
     <Compile Include="src\Modules\CommandList.cs" />
     <Compile Include="src\Modules\Misc.cs" />
     <Compile Include="Program.cs" />

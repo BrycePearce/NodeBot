@@ -18,5 +18,8 @@ namespace NodeBot.src
             { "thunderstorm", "⛈"},
             { "tornado", "🌪"},
         };
+
+        public static string statusOnline = "online";
+        public static string statusOffline = "offline";
     }
 }

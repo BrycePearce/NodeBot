@@ -17,6 +17,7 @@ namespace NodeBot.src.Modules
         private static readonly HttpClient client = new HttpClient(); // I think adding this here might be bad practice. Not sure. todo: findout
 
         [Command("weather")]
+        [Alias("we")]
         public async Task WeatherInformation([Remainder][Optional] string message) // [Remainder] gives us the message after the command try = "" again
         {
 
@@ -84,12 +85,12 @@ namespace NodeBot.src.Modules
             var emoji = SetEmoji(deserializedDarkResponse.currently.icon);
             var themeColor = ThemeColor(deserializedDarkResponse.currently.temperature);
             var embed = new EmbedBuilder();
-            embed.Title = emoji + " " + formattedAddress + " : " + deserializedDarkResponse.currently.time;
+            embed.Title = emoji + " " + formattedAddress;
             embed.WithDescription("" +
                                  deserializedDarkResponse.currently.temperature + "F / " + Celcius(deserializedDarkResponse.currently.temperature) + "C\n" +
                                  "Cloud Cover: " + deserializedDarkResponse.currently.cloudCover + "\n" +
                                  "Windspeed: " + deserializedDarkResponse.currently.windSpeed + "mph\n" +
-                                 "Humidity: " + deserializedDarkResponse.currently.humidity + "mph\n" +
+                                 "Humidity: " + deserializedDarkResponse.currently.humidity + "%\n" +
                                  "Chance of Rain: " + deserializedDarkResponse.daily.data[0].precipProbability + "%\n\n" +
                                  "Forecast: " + deserializedDarkResponse.daily.summary
 
