@@ -1,5 +1,6 @@
 ﻿using Discord;
 using Discord.WebSocket;
+using NodeBot.src.DataCollection;
 using NodeBot.src.Modules;
 using System;
 using System.Threading.Tasks;
@@ -15,7 +16,7 @@ namespace NodeBot
 
         public async Task StartAsync()
         {
-            CollectGamesBeingPlayed collectGamesBeingPlayed = new CollectGamesBeingPlayed();
+            Games statusChange = new Games();
             // make sure we have a token
             if (String.IsNullOrEmpty(Config.bot.token)) return;
 
@@ -27,7 +28,8 @@ namespace NodeBot
             //await _client.SetGameAsync("Roboholics-Anonymous", "https://www.twitch.tv/cocoari", StreamType.Twitch);
             await _client.SetGameAsync(".commands");
 
-            _client.GuildMemberUpdated += collectGamesBeingPlayed.AnnounceJoinedUser;
+            _client.GuildMemberUpdated += statusChange.CollectGamesBeingPlayed;
+
 
             // subscribe to a log event
             _client.Log += Log;

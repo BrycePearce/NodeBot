@@ -1,13 +1,12 @@
-﻿using Discord.WebSocket;
+﻿using Discord;
+using Discord.Commands;
+using Discord.WebSocket;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace NodeBot.src.DataCollection
 {
-    public class Games
+    public class Games : ModuleBase<SocketCommandContext>
     {
         /*
          * https://i.imgur.com/RSNDxvl.png
@@ -15,10 +14,12 @@ namespace NodeBot.src.DataCollection
          * todo: move this out into its own non-modules file/folder.
          * https://discord.foxbot.me/docs/api/Discord.WebSocket.SocketUser.html
          */
-        public async Task AnnounceJoinedUser(SocketGuildUser user, SocketUser userAgain)
+        public async Task CollectGamesBeingPlayed(SocketGuildUser user, SocketUser userAgain)
         {
-            //var channel = client.GetChannel(user.Guild.Id.ToString()) as SocketTextChannel; // Gets the channel to send the message in
-            //await channel.SendMessageAsync($"Welcome {user.mention} to {channel.Guild.Name}");
+            string strGuildId = user.Guild.Id.ToString();
+            ulong ulongId = Convert.ToUInt64(strGuildId);
+            var channel = user.Guild.GetChannel(ulongId) as SocketTextChannel;
+            //await channel.SendMessageAsync("a user has changed status!");
         }
     }
 }
