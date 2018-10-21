@@ -135,6 +135,7 @@
     <Compile Include="CommandHandler.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="src\Constants.cs" />
+    <Compile Include="src\DataCollection\Games.cs" />
     <Compile Include="src\Helpers\DataStorage.cs" />
     <Compile Include="src\Models\DarkSkyModel.cs" />
     <Compile Include="src\Models\GeocodeModel.cs" />
