@@ -1,7 +1,6 @@
 ﻿using Discord;
 using Discord.WebSocket;
 using NodeBot.src.DataCollection;
-using NodeBot.src.Modules;
 using System;
 using System.Threading.Tasks;
 

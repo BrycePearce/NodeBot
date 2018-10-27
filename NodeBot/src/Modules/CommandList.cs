@@ -12,7 +12,10 @@ namespace NodeBot.src.Modules
         [Command("commands")]
         public async Task ListCommands()
         {
-            await Context.Channel.SendMessageAsync("Current commands list:\n" + ".weather Some Location\n" + ".weather set Your Location\n" + ".listgames (lists games being played in current channel)");
+            await Context.Channel.SendMessageAsync("Current commands list:\n" + ".weather Some Location\n" + ".weather set Your Location\n" + 
+                ".listgames (lists games being played in current channel)\n" +
+                ".movies (day,week,month)"
+                );
         }
     }
 }

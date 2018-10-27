@@ -14,6 +14,8 @@ namespace NodeBot
         private const string configFile = "config.json";
         public static BotConfig bot;
         public static WeatherConfig weatherTokens;
+        public static MovieConfig movieConfig;
+
         // constructor
         static Config()
         {
@@ -32,6 +34,7 @@ namespace NodeBot
                 string json = File.ReadAllText(configFolder + "/" + configFile);
                 bot = JsonConvert.DeserializeObject<BotConfig>(json);
                 weatherTokens = JsonConvert.DeserializeObject<WeatherConfig>(json);
+                movieConfig = JsonConvert.DeserializeObject<MovieConfig>(json);
             }
         }
     }
@@ -46,5 +49,17 @@ namespace NodeBot
     {
         public string googleGeoToken;
         public string darkSkyToken;
+    }
+
+    public struct MovieConfig
+    {
+        public string movieSiteLog;
+        public string movieSiteTop;
+        public string movieUser;
+        public string moviePass;
+        public string movieKey;
+        public string movieCookieName;
+        public string movieCookieValue;
+    
     }
 }
