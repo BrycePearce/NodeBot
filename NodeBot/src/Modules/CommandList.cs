@@ -1,8 +1,4 @@
 ﻿using Discord.Commands;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace NodeBot.src.Modules
@@ -14,7 +10,8 @@ namespace NodeBot.src.Modules
         {
             await Context.Channel.SendMessageAsync("Current commands list:\n" + ".weather Some Location\n" + ".weather set Your Location\n" + 
                 ".listgames (lists games being played in current channel)\n" +
-                ".movies (day,week,month)"
+                ".movies (day,week,month)" +
+                ".roll (.r .d) e.g. .r 4d20 rolls dice and prints out results"
                 );
         }
     }

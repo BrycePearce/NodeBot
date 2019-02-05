@@ -32,6 +32,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Antlr4.Runtime.Standard, Version=4.7.2.0, Culture=neutral, PublicKeyToken=e78b2c5abd1fcb3f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Antlr4.Runtime.Standard.4.7.2\lib\net35\Antlr4.Runtime.Standard.dll</HintPath>
+    </Reference>
+    <Reference Include="Dice, Version=4.0.0.0, Culture=neutral, PublicKeyToken=71b60f2a3a7f9f66, processorArchitecture=MSIL">
+      <HintPath>..\packages\DiceRoller.4.0.0\lib\net452\Dice.dll</HintPath>
+    </Reference>
     <Reference Include="Discord.Net.Commands, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Discord.Net.Commands.1.0.2\lib\netstandard1.1\Discord.Net.Commands.dll</HintPath>
     </Reference>
@@ -128,6 +134,9 @@
     <Reference Include="System.Security.Cryptography.X509Certificates, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Security.Cryptography.X509Certificates.4.3.0\lib\net461\System.Security.Cryptography.X509Certificates.dll</HintPath>
     </Reference>
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net461\System.ValueTuple.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -145,9 +154,12 @@
     <Compile Include="src\Helpers\DataStorage.cs" />
     <Compile Include="src\Models\DarkSkyModel.cs" />
     <Compile Include="src\Models\GeocodeModel.cs" />
+    <Compile Include="src\Models\SearchModel.cs" />
     <Compile Include="src\Models\SomeMovieWebsiteResponseModel.cs" />
     <Compile Include="src\Modules\CollectGamesBeingPlayed.cs" />
     <Compile Include="src\Modules\CommandList.cs" />
+    <Compile Include="src\Modules\Dice.cs" />
+    <Compile Include="src\Modules\GoogleSearch.cs" />
     <Compile Include="src\Modules\Misc.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
