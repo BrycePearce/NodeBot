@@ -1,11 +1,5 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace NodeBot
 {
     class Config
@@ -15,6 +9,7 @@ namespace NodeBot
         public static BotConfig bot;
         public static WeatherConfig weatherTokens;
         public static MovieConfig movieConfig;
+        public static GoogleSearchConfig googleConfig;
 
         // constructor
         static Config()
@@ -34,7 +29,7 @@ namespace NodeBot
                 string json = File.ReadAllText(configFolder + "/" + configFile);
                 bot = JsonConvert.DeserializeObject<BotConfig>(json);
                 weatherTokens = JsonConvert.DeserializeObject<WeatherConfig>(json);
-                movieConfig = JsonConvert.DeserializeObject<MovieConfig>(json);
+                googleConfig = JsonConvert.DeserializeObject<GoogleSearchConfig>(json);
             }
         }
     }
@@ -60,6 +55,10 @@ namespace NodeBot
         public string movieKey;
         public string movieCookieName;
         public string movieCookieValue;
-    
+    }
+
+    public struct GoogleSearchConfig
+    {
+        public string googleSearchKey;
     }
 }

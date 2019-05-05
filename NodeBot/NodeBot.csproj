@@ -152,10 +152,11 @@
     <Compile Include="src\Constants.cs" />
     <Compile Include="src\DataCollection\Games.cs" />
     <Compile Include="src\Helpers\DataStorage.cs" />
+    <Compile Include="src\Models\AnimalModel.cs" />
     <Compile Include="src\Models\DarkSkyModel.cs" />
     <Compile Include="src\Models\GeocodeModel.cs" />
     <Compile Include="src\Models\SearchModel.cs" />
-    <Compile Include="src\Models\SomeMovieWebsiteResponseModel.cs" />
+    <Compile Include="src\Modules\Animals.cs" />
     <Compile Include="src\Modules\CollectGamesBeingPlayed.cs" />
     <Compile Include="src\Modules\CommandList.cs" />
     <Compile Include="src\Modules\Dice.cs" />
@@ -163,7 +164,6 @@
     <Compile Include="src\Modules\Misc.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="src\Modules\TopMovie.cs" />
     <Compile Include="src\Modules\Weather.cs" />
     <Compile Include="Utilities.cs" />
   </ItemGroup>
