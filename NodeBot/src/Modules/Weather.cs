@@ -5,11 +5,11 @@ using NodeBot.src.Helpers;
 using NodeBot.src.Models;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Net.Http;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
-
 namespace NodeBot.src.Modules
 {
     public class Weather : ModuleBase<SocketCommandContext>
@@ -20,7 +20,6 @@ namespace NodeBot.src.Modules
         [Alias("we")]
         public async Task WeatherInformation([Remainder][Optional] string message) // [Remainder] gives us the message after the command try = "" again
         {
-
             // handle un-registered users with no query
             if (String.IsNullOrWhiteSpace(message) && !DataStorage.HasKey(Context.User.Username)) { await Context.Channel.SendMessageAsync("Set your default location with .weather set YOUR LOCATION"); return; }
 
@@ -61,7 +60,7 @@ namespace NodeBot.src.Modules
         private async void SendWeatherInfo(string message)
         {
             // Call google to geocode given address, store lat lng for darksky api
-            string geocodeUrl = "https://maps.googleapis.com/maps/api/geocode/json?address=" + message + "&key=" + Config.weatherTokens.googleGeoToken; // todo: move key to json
+            string geocodeUrl = "https://maps.googleapis.com/maps/api/geocode/json?address=" + message + "&key=" + Config.weatherTokens.googleGeoToken;
 
             var geoResponse = await client.GetAsync(geocodeUrl);
             var geoResponseString = await geoResponse.Content.ReadAsStringAsync();
@@ -85,13 +84,16 @@ namespace NodeBot.src.Modules
             var emoji = SetEmoji(deserializedDarkResponse.currently.icon);
             var themeColor = ThemeColor(deserializedDarkResponse.currently.temperature);
             var embed = new EmbedBuilder();
+
+            var annoying = deserializedDarkResponse.currently.cloudCover.ToString("P0", CultureInfo.InvariantCulture);
+            var thing = annoying.Replace(" ", "");
             embed.Title = emoji + " " + formattedAddress;
             embed.WithDescription("" +
                                  deserializedDarkResponse.currently.temperature + "F / " + Celcius(deserializedDarkResponse.currently.temperature) + "C\n" +
-                                 "Cloud Cover: " + deserializedDarkResponse.currently.cloudCover + "\n" +
+                                 "Cloud Cover: " + deserializedDarkResponse.currently.cloudCover.ToString("P0", CultureInfo.InvariantCulture).Replace(" ", string.Empty) + "\n" +
                                  "Windspeed: " + deserializedDarkResponse.currently.windSpeed + "mph\n" +
-                                 "Humidity: " + deserializedDarkResponse.currently.humidity + "%\n" +
-                                 "Chance of Rain: " + deserializedDarkResponse.daily.data[0].precipProbability + "%\n\n" +
+                                 "Humidity: " + deserializedDarkResponse.currently.humidity.ToString("P0", CultureInfo.InvariantCulture).Replace(" ", string.Empty) + "\n" +
+                                 "Chance of Rain: " + deserializedDarkResponse.daily.data[0].precipProbability.ToString("P0", CultureInfo.InvariantCulture).Replace(" ", string.Empty) + "\n\n" +
                                  "Forecast: " + deserializedDarkResponse.daily.summary
 
                 );
