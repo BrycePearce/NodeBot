@@ -15,8 +15,6 @@ namespace NodeBot.src.Modules
         {
             var dice = RollGen(message);
             var roll = dice.AsIndividualRolls();
-            int[] array = new int[] { 18, 17, 17, 16 }; // 68 / 80, 85%
-            double thing = (double)array.Sum() / (double)80 * 100;
             double percentage = Math.Round((double)roll.Sum() / (double)dice.AsPotentialMaximum() * 100, 0);
             await ReplyAsync($":: Total {roll.Sum()} / {dice.AsPotentialMaximum()} [{percentage}%] :: Results [{string.Join(", ", roll)}] ::");
         }
